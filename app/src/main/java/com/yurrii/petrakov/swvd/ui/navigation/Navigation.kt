@@ -107,7 +107,7 @@ fun Navigation(modifier: Modifier = Modifier,
     val backStack = rememberNavBackStack(
         if (deepLinkUrl == null) ControlPanelS else {
             if (urlHandler.ifUrlInAllowList(deepLinkUrl, true)) {
-                WebViewS(deepLinkUrl, false)
+                WebViewS(deepLinkUrl, true)
             } else {
                 Empty
             }
