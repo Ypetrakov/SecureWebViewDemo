@@ -3,7 +3,8 @@ package com.yurrii.petrakov.swvd.ui.navigation
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
+import androidx.activity.compose.LocalActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -54,14 +55,14 @@ fun Navigation(modifier: Modifier = Modifier,
     var isInCustomTab by remember { mutableStateOf(false) }
     val lifecycleOwner = androidx.lifecycle.compose.LocalLifecycleOwner.current
     val analyticsTracker: AnalyticsTracker = koinInject()
-
+    val activity = LocalActivity.current
 
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_RESUME) {
                 if (isInCustomTab) {
                     analyticsTracker.trackEvent("custom_tab_closed")
-                    (context as? ComponentActivity)?.finishAndRemoveTask()
+                    activity?.finishAndRemoveTask()
                 }
             }
         }
@@ -112,6 +113,12 @@ fun Navigation(modifier: Modifier = Modifier,
             }
         }
     )
+
+    BackHandler(backStack == ControlPanelS) {
+        activity?.finish()
+    }
+
+
     val viewModel: WebViewModel = koinViewModel()
 
     val webView = rememberWebView(
@@ -134,10 +141,12 @@ fun Navigation(modifier: Modifier = Modifier,
         }
     }
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(deepLinkUrl) {
         if (deepLinkUrl != null) {
             if (urlHandler.ifUrlInAllowList(deepLinkUrl)) {
                 analyticsTracker.trackEvent("deep_link_to_game_triggered")
+                val title = intent?.data?.getQueryParameter("title")
+                commonViewModel.updateTitle(title ?: "No title")
             }
         }
     }

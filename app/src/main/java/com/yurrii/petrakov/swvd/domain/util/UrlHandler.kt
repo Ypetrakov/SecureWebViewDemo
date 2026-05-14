@@ -12,6 +12,7 @@ class UrlHandler {
     val allowList = listOf(
         "aHR0cHM6Ly9uZXdzLnljb21iaW5hdG9yLmNvbS8=",
         "aHR0cHM6Ly9leGFtcGxlLmNvbS8=",
+        "aHR0cHM6Ly93d3cucmVmcmVzaHlvdXJjYWNoZS5jb20vZW4vY2FjaGUtdGVzdA=="
     )
 
     fun decodeUrl(string: String): String {

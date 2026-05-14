@@ -1,3 +1,10 @@
+
+AllowHosts:
+- https://www.refreshyourcache.com/en/cache-test/
+- https://news.ycombinator.com/
+- https://example.com
+
+---
 Команда щоб відкрити - https://news.ycombinator.com/
 
 adb shell am start \
