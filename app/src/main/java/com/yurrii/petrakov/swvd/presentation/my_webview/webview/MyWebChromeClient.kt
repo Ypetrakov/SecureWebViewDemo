@@ -1,12 +1,10 @@
 package com.yurrii.petrakov.swvd.presentation.my_webview.webview
 
-import android.content.Context
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import com.yurrii.petrakov.swvd.presentation.my_webview.WebViewModel
 
 class MyWebChromeClient(
-    private val context: Context,
     private val viewModel: WebViewModel
 ) : WebChromeClient() {
 

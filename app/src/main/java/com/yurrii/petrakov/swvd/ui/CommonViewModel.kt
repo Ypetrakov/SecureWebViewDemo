@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 class CommonViewModel: ViewModel() {
-    private val topBarState_ = MutableStateFlow<TopBarState>(
+    private val topBarState_ = MutableStateFlow(
         TopBarState(
             showBack = false,
             title = "Secure WebView Demo",
@@ -16,10 +16,6 @@ class CommonViewModel: ViewModel() {
         )
     )
     val topBarState = topBarState_.asStateFlow()
-
-    fun updateTopBarState(state: TopBarState) {
-        topBarState_.value = state
-    }
 
     fun updateBackVisibility(show: Boolean) {
         topBarState_.value = topBarState_.value.copy(
@@ -42,12 +38,6 @@ class CommonViewModel: ViewModel() {
     fun setBackAction(action: () -> Unit) {
         topBarState_.value = topBarState_.value.copy(
             onBack = action
-        )
-    }
-
-    fun setOptionsAction(action: () -> Unit) {
-        topBarState_.value = topBarState_.value.copy(
-            onOptions = action
         )
     }
 

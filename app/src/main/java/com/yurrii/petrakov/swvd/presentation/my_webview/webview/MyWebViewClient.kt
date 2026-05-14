@@ -1,7 +1,5 @@
 package com.yurrii.petrakov.swvd.presentation.my_webview.webview
 
-import android.content.Context
-import android.graphics.Bitmap
 import android.net.http.SslError
 import android.util.Log
 import android.webkit.CookieManager
@@ -17,7 +15,6 @@ import com.yurrii.petrakov.swvd.presentation.my_webview.WebViewScreenState
 
 
 class MyWebViewClient(
-    private val context: Context,
     val webViewModel: WebViewModel,
     val analyticsTracker: AnalyticsTracker
 ) : WebViewClient() {
@@ -51,11 +48,6 @@ class MyWebViewClient(
         url?.let {
             analyticsTracker.trackEvent("url_loaded",it )
         }
-    }
-
-    override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
-        super.onPageStarted(view, url, favicon)
-
     }
 
     override fun onReceivedSslError(view: WebView?, handler: SslErrorHandler?, error: SslError?) {

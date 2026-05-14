@@ -38,7 +38,7 @@ class MainActivity : ComponentActivity() {
                     }
                 ) { innerPadding ->
                     Navigation(
-                        Modifier.Companion.padding(innerPadding),
+                        Modifier.padding(innerPadding),
                         intent,
                         commonViewModel
                     )

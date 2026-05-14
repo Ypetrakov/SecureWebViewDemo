@@ -32,8 +32,8 @@ fun rememberWebView(
                 else (context as Activity).finish()
             }
             setSettings()
-            webChromeClient = MyWebChromeClient(context, viewModel)
-            webViewClient = MyWebViewClient(context, viewModel, analyticsTracker)
+            webChromeClient = MyWebChromeClient(viewModel)
+            webViewClient = MyWebViewClient(viewModel, analyticsTracker)
         }
     }
 }

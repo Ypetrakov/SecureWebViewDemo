@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-class WebViewModel() : ViewModel() {
+class WebViewModel : ViewModel() {
     var progress by mutableFloatStateOf(0f)
     var title by mutableStateOf("")
 
