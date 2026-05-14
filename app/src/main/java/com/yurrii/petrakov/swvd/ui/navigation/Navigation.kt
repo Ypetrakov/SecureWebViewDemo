@@ -58,7 +58,6 @@ fun Navigation(modifier: Modifier = Modifier,
 
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
-            Log.d("[APP_ANALYTICS] ", event.name)
             if (event == Lifecycle.Event.ON_RESUME) {
                 if (isInCustomTab) {
                     analyticsTracker.trackEvent("custom_tab_closed")
@@ -79,6 +78,9 @@ fun Navigation(modifier: Modifier = Modifier,
         val data = intent?.data
         val scheme = data?.scheme
         Log.d("DeepLink", intent?.data.toString() ?: "")
+        if (!urlHandler.validateDeepLink(data)) {
+            return@remember null
+        }
         when (scheme) {
             "fdsqwoxss" -> {
                 // Logic for your specific menu scheme

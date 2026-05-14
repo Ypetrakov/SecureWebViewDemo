@@ -1,5 +1,6 @@
 package com.yurrii.petrakov.swvd.domain.util
 
+import android.net.Uri
 import android.util.Log
 import androidx.core.net.toUri
 import java.net.HttpURLConnection
@@ -57,37 +58,85 @@ class UrlHandler {
         }
     }
 
-    fun validateDeepLink(deepLink: String): Boolean {
+    fun validateDeepLink(data: Uri?): Boolean {
         return try {
-            val uri = deepLink.toUri()
+            Log.d("DeepLink", "validateDeepLink called with: $data")
 
-            val isStructureValid =
-                uri.scheme == "myapp" &&
-                        uri.host == "game" &&
-                        !uri.getQueryParameter("url").isNullOrBlank() &&
-                        !uri.getQueryParameter("title").isNullOrBlank()
+            if (data == null) {
+                Log.d("DeepLink", "FAILED: data is null")
+                return false
+            }
 
-            if (!isStructureValid) return false
+            val allowedSchemes = setOf("myapp", "fdsqwoxss")
 
-            val encodedUrl = uri.getQueryParameter("url") ?: return false
+            val scheme = data.scheme
+            if (scheme == null) {
+                Log.d("DeepLink", "FAILED: scheme is null")
+                return false
+            }
+
+            Log.d("DeepLink", "scheme = $scheme")
+
+            if (scheme !in allowedSchemes) {
+                Log.d("DeepLink", "FAILED: scheme not allowed -> $scheme")
+                return false
+            }
+
+            val host = data.host
+            Log.d("DeepLink", "host = $host")
+
+            if (host != "game") {
+                Log.d("DeepLink", "FAILED: invalid host -> $host")
+                return false
+            }
+
+            val encodedUrl = data.getQueryParameter("url")
+            val title = data.getQueryParameter("title")
+
+            Log.d("DeepLink", "encodedUrl = $encodedUrl")
+            Log.d("DeepLink", "title = $title")
+
+            if (encodedUrl.isNullOrBlank() || title.isNullOrBlank()) {
+                Log.d("DeepLink", "FAILED: missing url or title")
+                return false
+            }
 
             val decodedUrl = try {
-                decodeUrl(encodedUrl)
+                val result = decodeUrl(encodedUrl)
+                Log.d("DeepLink", "decodedUrl = $result")
+                result
             } catch (e: Exception) {
+                Log.d("DeepLink", "FAILED: decodeUrl exception = ${e.message}")
                 return false
             }
 
             val decodedUri = decodedUrl.toUri()
-            val schemeOk = decodedUri.scheme == "http" || decodedUri.scheme == "https"
-            if (!schemeOk) return false
+            val decodedScheme = decodedUri.scheme
 
-            return ifUrlInAllowList(decodedUrl)
+            Log.d("DeepLink", "decodedScheme = $decodedScheme")
+
+            if (decodedScheme == null) {
+                Log.d("DeepLink", "FAILED: decoded scheme is null")
+                return false
+            }
+
+            val schemeOk = decodedScheme == "http" || decodedScheme == "https"
+
+            Log.d("DeepLink", "schemeOk = $schemeOk")
+
+            if (!schemeOk) {
+                Log.d("DeepLink", "FAILED: decoded scheme not http/https")
+                return false
+            }
+
+            Log.d("DeepLink", "SUCCESS: deep link is valid")
+            return true
 
         } catch (e: Exception) {
+            Log.e("DeepLink", "CRASH in validateDeepLink", e)
             false
         }
     }
-
     fun ifUrlInAllowList(url: String, isDecoded: Boolean = false): Boolean {
         Log.d("TEST", url)
         return allowList.map { decodeUrl(it) }.any { allowed ->
