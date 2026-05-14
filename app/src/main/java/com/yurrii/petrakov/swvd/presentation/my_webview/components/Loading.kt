@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -60,10 +61,20 @@ fun Loading(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            Text(
-                text = "Loading URL",
-                fontSize = 20.sp
-            )
+            Row(
+                Modifier.height(25.dp)
+            ) {
+                Text(
+                    text = "Loading URL",
+                    fontSize = 20.sp
+                )
+                Text(
+                    text = dots,
+                    fontSize = 24.sp,
+                    modifier = Modifier.width(24.dp)
+                )
+            }
+
 
 
             if (isOpenedViaDeepLink) {
@@ -93,12 +104,6 @@ fun Loading(
 
                 Text(url, textAlign = TextAlign.Center)
             }
-
-            Text(
-                text = dots,
-                fontSize = 24.sp,
-                modifier = Modifier.width(24.dp)
-            )
         }
         Spacer(Modifier.weight(1f))
 
