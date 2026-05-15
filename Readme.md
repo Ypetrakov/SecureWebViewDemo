@@ -2,7 +2,7 @@
 Ви можете завантажити та встановити останню версію додатка прямо з файлу:
 [petrakov.webview.apk](petrakov.webview.apk) 
 
-> Minimum Android version: 7.0 (якщо знаєш — додай)
+> Minimum Android version: 7.0
 > Target SDK: 37
 
 ### Requirements
