@@ -1,3 +1,31 @@
+# Інструкція
+Ви можете завантажити та встановити останню версію додатка прямо з файлу:
+[petrakov.webview.apk](petrakov.webview.apk) 
+
+> Minimum Android version: 7.0 (якщо знаєш — додай)
+> Target SDK: 37
+
+### Requirements
+- Android Studio Panda
+- Kotlin 2.3.21
+- Gradle 9.5.1
+- Min SDK 24
+
+### Run project
+```bash
+git clone https://github.com/Ypetrakov/SecureWebViewDemo.git
+cd SecureWebViewDemo
+chmod +x gradlew
+./gradlew installDebug
+```
+
+### Open with deeplink
+```bash
+adb shell am start \
+-a android.intent.action.VIEW \
+-d 'myapp://game?url=aHR0cHM6Ly9uZXdzLnljb21iaW5hdG9yLmNvbS8=\&title=Test'
+```
+
 # Архітектура та структура
 Додаток побудований з clean architecture. Використовувався Koin для DI
 
