@@ -60,10 +60,7 @@ adb shell am start \
 ---
 Комана по якій я відкривав https://tiger.oneappssite.website/ - CustomTabs
 
-adb shell am start \
--a android.intent.action.VIEW \
--d 'myapp://game?url=aHR0cHM6Ly90aWdlci5vbmVhcHBzc2l0ZS53ZWJzaXRlLw=\&title=Test'
-
+adb shell am start -a android.intent.action.VIEW -d 'myapp://game?url=aHR0cHM6Ly90aWdlci5vbmVhcHBzc2l0ZS53ZWJzaXRlLw==&title=Test'
 Також можна відкрити по кнопці з додатку
 
 6. Повторне відкриття WebView - Відкрив webview, перейшов назад, усе відображається коректно

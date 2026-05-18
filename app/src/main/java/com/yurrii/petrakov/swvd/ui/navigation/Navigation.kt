@@ -146,7 +146,7 @@ fun Navigation(modifier: Modifier = Modifier,
             if (urlHandler.ifUrlInAllowList(deepLinkUrl)) {
                 analyticsTracker.trackEvent("deep_link_to_game_triggered")
                 val title = intent?.data?.getQueryParameter("title")
-                commonViewModel.updateTitle(title ?: "No title")
+                if (!title.isNullOrEmpty()) commonViewModel.updateTitle(title ?: "No title")
             }
         }
     }

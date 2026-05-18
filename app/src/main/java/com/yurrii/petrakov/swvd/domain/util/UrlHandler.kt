@@ -45,7 +45,7 @@ class UrlHandler {
             val host = data.host
             Log.d("DeepLink", "host = $host")
 
-            if (host != "game") {
+            if (host != "game" && host != "menu") {
                 Log.d("DeepLink", "FAILED: invalid host -> $host")
                 return false
             }
@@ -56,9 +56,10 @@ class UrlHandler {
             Log.d("DeepLink", "encodedUrl = $encodedUrl")
             Log.d("DeepLink", "title = $title")
 
-            if (encodedUrl.isNullOrBlank() || title.isNullOrBlank()) {
+            if (encodedUrl.isNullOrBlank()) {
                 Log.d("DeepLink", "FAILED: missing url or title")
-                return false
+
+                return true
             }
 
             val decodedUrl = try {
