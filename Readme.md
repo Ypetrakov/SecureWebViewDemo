@@ -53,9 +53,7 @@ adb shell am start \
 
 Команда по якій я відкривав - https://news.ycombinator.com/ - WebView
 
-adb shell am start \
--a android.intent.action.VIEW \
--d 'myapp://game?url=aHR0cHM6Ly9uZXdzLnljb21iaW5hdG9yLmNvbS8=\&title=Test'
+adb shell am start -a android.intent.action.VIEW -d 'myapp://game?url=aHR0cHM6Ly9uZXdzLnljb21iaW5hdG9yLmNvbS8=&title=Test'
 
 ---
 Комана по якій я відкривав https://tiger.oneappssite.website/ - CustomTabs
