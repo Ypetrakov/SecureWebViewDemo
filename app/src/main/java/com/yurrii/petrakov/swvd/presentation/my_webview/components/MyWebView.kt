@@ -1,6 +1,7 @@
 package com.yurrii.petrakov.swvd.presentation.my_webview.components
 
 import android.webkit.WebView
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -33,6 +34,10 @@ fun MyWebView(
     openedWithDeepLink: Boolean,
     modifier: Modifier = Modifier,
 ) {
+
+    BackHandler(enabled = webView.canGoBack()) {
+        webView.goBack()
+    }
     Column(modifier.fillMaxSize()) {
         if (openedWithDeepLink) {
             Box(

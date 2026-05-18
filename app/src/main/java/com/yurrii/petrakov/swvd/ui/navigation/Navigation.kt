@@ -132,7 +132,10 @@ fun Navigation(modifier: Modifier = Modifier,
 
     LaunchedEffect(Unit) {
         commonViewModel.setBackAction {
-            if (backStack.first() == ControlPanelS) {
+            if (webView.canGoBack()) {
+                webView.goBack()
+            }
+            else if (backStack.first() == ControlPanelS) {
                 backStack.removeLastOrNull()
             } else {
                 backStack.removeLastOrNull()
@@ -155,7 +158,12 @@ fun Navigation(modifier: Modifier = Modifier,
     NavDisplay(
         backStack = backStack,
         modifier = modifier,
-        onBack = { backStack.removeLastOrNull() },
+        onBack = {
+            if (webView.canGoBack()) {
+                webView.goBack()
+            }
+            backStack.removeLastOrNull()
+                 },
         entryProvider = { key ->
             when (key) {
                 is ControlPanelS -> NavEntry(key) {
